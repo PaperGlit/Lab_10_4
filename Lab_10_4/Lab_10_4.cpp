@@ -6,8 +6,7 @@ using namespace std;
 
 void CreateTXT(char* fname) 
 {
-	ofstream fout(fname, ios_base::app);
-	char ch; 
+	ofstream fout(fname);
 	string s;
 	cin.get();
 	cin.sync();
@@ -16,15 +15,15 @@ void CreateTXT(char* fname)
 	cout << endl;
 }
 
-void PrintTXT(char* fname)
+string PrintTXT(char* fname)
 {
 	ifstream fin(fname);
-	string s;
+	string s, s1;
 	while (getline(fin, s))
 	{
-		cout << s << endl;
+		s1 += s + "\n";
 	}
-	cout << endl;
+	return s1;
 }
 
 void ProcessTXT(char* fname, char* gname, string search)
@@ -51,7 +50,7 @@ int main()
 	char yorn;
 	cout << "Enter filename : "; cin >> fname;
 	do {
-		cout << "1 - Enter a new line; 2 - Search : "; cin >> response;
+		cout << "1 - Enter a new line; 2 - Search; 3 - Print : "; cin >> response;
 		if (response == 1)
 			CreateTXT(fname);
 		else if (response == 2)
@@ -59,8 +58,10 @@ int main()
 			cout << "Enter filename 2 : "; cin >> gname;
 			cout << "Enter a line to search : "; cin >> search;
 			ProcessTXT(fname, gname, search);
-			PrintTXT(gname);
+			cout << PrintTXT(gname) << endl;;
 		}
+		else if (response == 3)
+			cout << PrintTXT(fname) << endl;
 		else
 			cout << "Wrong input, please try again" << endl;
 		cout << "Continue? (y) : "; cin >> yorn;
